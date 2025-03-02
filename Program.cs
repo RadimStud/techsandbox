@@ -13,17 +13,10 @@ using System.Text;
 using BCrypt.Net;
 using Microsoft.OpenApi.Models;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔹 Tajný klíč pro JWT (nahraďte bezpečnější variantou)
+// 🔹 Nastavení JWT
 var key = "tajny_klic_pro_jwt";
-
-// 🔹 Nastavení databáze
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite("Data Source=app.db"));
-
-// 🔹 Přidání JWT autentizace
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -37,6 +30,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
+// 🔹 Nastavení databáze
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite("Data Source=app.db"));
+
+// 🔹 Registrace služeb
 builder.Services.AddAuthorization();
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
@@ -53,7 +51,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// 🔹 Aplikování migrací a inicializace testovacích dat
+// 🔹 Inicializace databáze
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -85,58 +83,25 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-// 🔹 Frontend – jednoduchý HTML soubor pro registraci/login
+// 🔹 Mapování HTML stránky
 app.MapGet("/", async context =>
 {
-    await context.Response.WriteAsync(@"
-    <!DOCTYPE html>
-    <html lang='cs'>
-    <head>
-        <meta charset='UTF-8'>
-        <title>Login & Registrace</title>
-    </head>
-    <body>
-        <h2>Registrace</h2>
-        <input id='regName' placeholder='Jméno'>
-        <input id='regEmail' placeholder='Email'>
-        <input id='regPassword' type='password' placeholder='Heslo'>
-        <button onclick='register()'>Registrovat</button>
-
-        <h2>Přihlášení</h2>
-        <input id='logEmail' placeholder='Email'>
-        <input id='logPassword' type='password' placeholder='Heslo'>
-        <button onclick='login()'>Přihlásit</button>
-
-        <script>
-            async function register() {
-                let response = await fetch('/api/auth/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: document.getElementById('regName').value,
-                        email: document.getElementById('regEmail').value,
-                        password: document.getElementById('regPassword').value
-                    })
-                });
-                alert(await response.text());
-            }
-
-            async function login() {
-                let response = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        email: document.getElementById('logEmail').value,
-                        password: document.getElementById('logPassword').value
-                    })
-                });
-                let data = await response.json();
-                alert('Token: ' + data.token);
-            }
-        </script>
-    </body>
-    </html>");
+    var htmlPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html");
+    if (File.Exists(htmlPath))
+    {
+        context.Response.ContentType = "text/html";
+        await context.Response.SendFileAsync(htmlPath);
+    }
+    else
+    {
+        context.Response.StatusCode = 404;
+        await context.Response.WriteAsync("Soubor nenalezen");
+    }
 });
+
+
+
+
 
 app.Run();
 

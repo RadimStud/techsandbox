@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registrace</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff9a9e, #fad0c4);
+            text-align: center;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        h2 {
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            animation: popIn 0.8s ease-out;
+        }
+
+        input {
+            display: block;
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin: 10px auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: linear-gradient(to right, #ff758c, #ff7eb3);
+            border: none;
+            padding: 10px;
+            width: 100%;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+            button:hover {
+                transform: scale(1.05);
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="Avatar" class="avatar">
+        <h2>Registrace</h2>
+        <input id="regName" placeholder="Jméno">
+        <input id="regEmail" placeholder="Email">
+        <input id="regPassword" type="password" placeholder="Heslo">
+        <button onclick="register()">Registrovat</button>
+
+        <h2>Přihlášení</h2>
+        <input id="logEmail" placeholder="Email">
+        <input id="logPassword" type="password" placeholder="Heslo">
+        <button onclick="login()">Přihlásit</button>
+    </div>
+
+    <script>
+        async function register() {
+            let response = await fetch('/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: document.getElementById('regName').value,
+                    email: document.getElementById('regEmail').value,
+                    password: document.getElementById('regPassword').value
+                })
+            });
+            alert(await response.text());
+        }
+
+        async function login() {
+            let response = await fetch('/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    email: document.getElementById('logEmail').value,
+                    password: document.getElementById('logPassword').value
+                })
+            });
+            let data = await response.json();
+            alert('Token: ' + data.token);
+        }
+    </script>
+
+</body>
+</html>
