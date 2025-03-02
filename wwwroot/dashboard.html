@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<!-- dashboard.html -->
+<!DOCTYPE html>
 <html lang="cs">
 <head>
     <meta charset="UTF-8">
@@ -17,6 +18,12 @@
             background: rgba(255, 255, 255, 0.2);
             padding: 15px;
             border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            margin-bottom: 20px;
         }
 
             nav a {
@@ -30,6 +37,30 @@
                 nav a:hover {
                     text-decoration: underline;
                 }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 100px);
+        }
+
+        .logout-button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background-color: #ff4b5c;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+
+            .logout-button:hover {
+                background-color: #ff847c;
+            }
     </style>
 </head>
 <body>
@@ -42,8 +73,19 @@
         <a href="boruvkovy.html">Borůvkový koláč</a>
     </nav>
 
-    <h1>Vítejte v dashboardu!</h1>
-    <p>Vyberte si recept nebo navštivte naši pekárnu.</p>
+    <div class="container">
+        <h1>Vítejte v dashboardu!</h1>
+        <p>Vyberte si recept nebo navštivte naši pekárnu.</p>
+
+        <button class="logout-button" onclick="logout()">Odhlásit se</button>
+    </div>
+
+    <script>
+        function logout() {
+            alert('Byl jste odhlášen.');
+            window.location.href = 'index.html';
+        }
+    </script>
 
 </body>
 </html>
