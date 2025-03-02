@@ -14,25 +14,6 @@
             animation: fadeIn 1.5s ease-in-out;
         }
 
-        nav {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-            nav a {
-                color: white;
-                text-decoration: none;
-                padding: 10px 15px;
-                margin: 0 10px;
-                font-weight: bold;
-                transition: 0.3s;
-            }
-
-                nav a:hover {
-                    text-decoration: underline;
-                }
-
         .container {
             background: rgba(255, 255, 255, 0.1);
             padding: 20px;
@@ -51,50 +32,14 @@
             color: white;
             border-radius: 5px;
             cursor: pointer;
-            transition: transform 0.2s, box-shadow 0.2s;
         }
 
             button:hover {
                 transform: scale(1.05);
-                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
             }
-
-        .scroll-btn {
-            margin-top: 20px;
-            background: #ff4b5c;
-            width: 200px;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-
-        @keyframes popIn {
-            from {
-                transform: scale(0.8);
-                opacity: 0;
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
     </style>
 </head>
 <body>
-
-    <nav>
-        <a href="index.html">Domů</a>
-        <a href="dashboard.html">Dashboard</a>
-        <a href="recept.html">Recepty</a>
-    </nav>
 
     <div class="container">
         <h2>Přihlášení</h2>
@@ -103,34 +48,7 @@
         <button onclick="login()">Přihlásit</button>
     </div>
 
-    <button class="scroll-btn" onclick="scrollToRegister()">Registrovat se</button>
-
-    <div id="register" class="container" style="margin-top: 50px;">
-        <h2>Registrace</h2>
-        <input id="regName" placeholder="Jméno">
-        <input id="regEmail" placeholder="Email">
-        <input id="regPassword" type="password" placeholder="Heslo">
-        <button onclick="register()">Registrovat</button>
-    </div>
-
     <script>
-        function scrollToRegister() {
-            document.getElementById("register").scrollIntoView({ behavior: "smooth" });
-        }
-
-        async function register() {
-            let response = await fetch('/api/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    name: document.getElementById('regName').value,
-                    email: document.getElementById('regEmail').value,
-                    password: document.getElementById('regPassword').value
-                })
-            });
-            alert(await response.text());
-        }
-
         async function login() {
             let response = await fetch('/api/auth/login', {
                 method: 'POST',
@@ -142,7 +60,7 @@
             });
 
             if (response.ok) {
-                window.location.href = "dashboard.html"; // Přesměrování na dashboard
+                window.location.href = "dashboard.html";
             } else {
                 alert("Přihlášení selhalo!");
             }
