@@ -231,3 +231,30 @@ public class UserLoginDto
     public string Password { get; set; } = string.Empty;
 }
 
+[ApiController]
+[Route("api/users")]
+public class UsersController : ControllerBase
+{
+    private readonly AppDbContext _context;
+
+    public UsersController(AppDbContext context)
+    {
+        _context = context;
+    }
+
+    /// <summary>
+    /// Získá seznam všech registrovaných uživatelů
+    /// </summary>
+    [HttpGet]
+    public IActionResult GetUsers()
+    {
+        var users = _context.Users.Select(u => new
+        {
+            u.Id,
+            u.Name,
+            u.Email
+        }).ToList();
+
+        return Ok(users);
+    }
+}
