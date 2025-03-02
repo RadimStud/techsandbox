@@ -1,0 +1,105 @@
+﻿<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jahodový koláč</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #ff4b5c, #ff847c);
+            text-align: center;
+            color: white;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        nav {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+
+            nav a {
+                color: white;
+                text-decoration: none;
+                padding: 10px 15px;
+                margin: 0 10px;
+                font-weight: bold;
+                transition: 0.3s;
+            }
+
+                nav a:hover {
+                    text-decoration: underline;
+                }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.8s ease-out;
+        }
+
+        img {
+            width: 250px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html">Domů</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="recept.html">Recepty</a>
+    </nav>
+
+    <div class="container">
+        <h1>Jahodový koláč 🍓</h1>
+        <img src="https://www.foodiecrush.com/wp-content/uploads/2021/07/Fresh-Strawberry-Pie-foodiecrush.com-031-500x500.jpg" alt="Jahodový koláč">
+        <p>
+            Ingredience:
+            <ul>
+                <li>250 g hladké mouky</li>
+                <li>100 g cukru</li>
+                <li>100 g másla</li>
+                <li>500 g čerstvých jahod</li>
+                <li>2 vejce</li>
+                <li>1 balíček prášku do pečiva</li>
+            </ul>
+        </p>
+        <p>
+            Postup:
+            Smíchejte mouku s cukrem a práškem do pečiva. Přidejte máslo a vejce.
+            Vypracujte těsto, rozválejte ho na plech a pokryjte nakrájenými jahodami. Pečte na 180°C 30 minut.
+        </p>
+    </div>
+
+</body>
+</html>

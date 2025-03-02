@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #2b5876, #4e4376);
+            text-align: center;
+            color: white;
+            padding: 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            width: 60%;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            animation: popIn 0.8s ease-out;
+        }
+
+        h1 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes popIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Vítejte!</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            Donec vehicula lectus nec metus cursus, vel ultricies nulla tristique.
+            Sed non libero at lectus vehicula tincidunt. Aenean at metus non ex faucibus feugiat.
+        </p>
+        <p>
+            Maecenas ultricies arcu sit amet ante sollicitudin fermentum.
+            Integer pharetra lorem ut tellus maximus, nec ultricies nunc vehicula.
+            Duis dapibus ante sit amet quam iaculis fermentum.
+        </p>
+    </div>
+
+</body>
+</html>
