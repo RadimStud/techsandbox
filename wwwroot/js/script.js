@@ -16,6 +16,7 @@
 }
 
 async function register() {
+    let name = document.getElementById('regName').value;
     let email = document.getElementById('regEmail').value;
     let password = document.getElementById('regPassword').value;
     let confirmPassword = document.getElementById('regConfirmPassword').value;
@@ -28,7 +29,7 @@ async function register() {
     let response = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ name, email, password })
     });
 
     if (response.ok) {

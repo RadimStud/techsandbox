@@ -61,7 +61,7 @@ using (var scope = app.Services.CreateScope())
     {
         dbContext.Users.AddRange(new List<User>
         {
-            new User { Name = "Alice Johnson", Email = "alice@example.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("password") },
+            new User { Name = "Alic26e Johnson", Email = "alice@example.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("password") },
             new User { Name = "Bob Smith", Email = "bob@example.com", PasswordHash = BCrypt.Net.BCrypt.HashPassword("password") }
         });
 
