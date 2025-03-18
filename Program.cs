@@ -15,7 +15,7 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 🔹 Nastavení JWT
+// Nastavení JWT
 var key = "tajny_klic_pro_jwt";
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -30,11 +30,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-// 🔹 Nastavení databáze
+// Nastavení databáze
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=app.db"));
 
-// 🔹 Registrace služeb
+// Registrace služeb
 builder.Services.AddAuthorization();
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
@@ -51,7 +51,7 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// 🔹 Inicializace databáze
+// Inicializace databáze
 using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
@@ -69,7 +69,7 @@ using (var scope = app.Services.CreateScope())
     }
 }
 
-// 🔹 Middleware
+// Middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -83,7 +83,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 
-// 🔹 Mapování HTML stránky
+// Mapování HTML stránky
 app.MapGet("/", async context =>
 {
     var htmlPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "index.html");
@@ -105,7 +105,7 @@ app.MapGet("/", async context =>
 
 app.Run();
 
-// 🔹 Databázový kontext
+// Databázový kontext
 public class AppDbContext : DbContext
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
@@ -113,7 +113,7 @@ public class AppDbContext : DbContext
     public required DbSet<User> Users { get; set; } = default!;
 }
 
-// 🔹 Model uživatele
+// Model uživatele
 public class User
 {
     public int Id { get; set; }
@@ -122,7 +122,7 @@ public class User
     public string PasswordHash { get; set; } = string.Empty; // 🔥 Oprava názvu
 }
 
-// 🔹 Controller pro registraci a přihlášení
+// Controller pro registraci a přihlášení
 [ApiController]
 [Route("api/auth")]
 public class AuthController : ControllerBase
